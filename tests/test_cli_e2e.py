@@ -14,7 +14,7 @@ class TestCLIBasicCommands:
         """Test that help command works."""
         result = cli_runner(["--help"])
         assert result.returncode == 0
-        assert "LeRobot Dataset Editor Tool" in result.stdout
+        assert "LERO - LeRobot dataset Operations toolkit" in result.stdout
         assert "--summary" in result.stdout
         assert "--list" in result.stdout
         assert "--gui" in result.stdout

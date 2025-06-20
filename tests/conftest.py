@@ -105,7 +105,7 @@ def cli_runner():
     
     def run_command(args: list, cwd: Path = None) -> subprocess.CompletedProcess:
         """Run a CLI command and return the result."""
-        cmd = [sys.executable, "-m", "lerobot_dataset_editor"] + args
+        cmd = [sys.executable, "-m", "lero"] + args
         result = subprocess.run(
             cmd,
             capture_output=True,

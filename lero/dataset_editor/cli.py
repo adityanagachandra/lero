@@ -20,7 +20,7 @@ class CLIHandler:
     def _setup_argument_parser(self) -> argparse.ArgumentParser:
         """Setup command line argument parser."""
         parser = argparse.ArgumentParser(
-            description="LeRobot Dataset Editor Tool",
+            description="LERO - LeRobot dataset Operations toolkit",
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:

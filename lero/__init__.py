@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-LeRobot Dataset Editor
+LERO - LeRobot dataset Operations toolkit
 
-A comprehensive tool for editing and managing LeRobot datasets for robot imitation learning.
+A comprehensive toolkit for editing and managing LeRobot datasets for robot imitation learning.
+LERO (LeRobot dataset Operations toolkit) provides powerful tools for LeRobot dataset editing.
 
 This package provides functionality for:
 - Loading and editing LeRobot datasets

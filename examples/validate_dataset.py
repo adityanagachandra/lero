@@ -26,7 +26,7 @@ from typing import Dict, List, Any
 sys.path.append(str(Path(__file__).parent.parent))
 
 try:
-    from lerobot_dataset_editor import LeRobotDatasetEditor
+    from lero import LeRobotDatasetEditor
 except ImportError as e:
     print(f"Error: Could not import LeRobot Dataset Editor: {e}")
     sys.exit(1)

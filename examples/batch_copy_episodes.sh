@@ -92,14 +92,14 @@ validate_episode_numbers() {
     return 0
 }
 
-# Function to check if lerobot_dataset_editor module exists
+# Function to check if lero module exists
 check_editor_script() {
     local script_dir
     script_dir="$(dirname "$(dirname "$(realpath "$0")")")"
-    local editor_module="$script_dir/lerobot_dataset_editor"
+    local editor_module="$script_dir/lero"
     
     if [[ ! -d "$editor_module" ]]; then
-        print_error "lerobot_dataset_editor module not found at $editor_module"
+        print_error "lero module not found at $editor_module"
         print_error "Please ensure this script is run from the examples directory of the project"
         return 1
     fi
@@ -115,7 +115,7 @@ get_episode_count() {
     
     # Get episode count from dataset summary
     local summary_output
-    summary_output=$(python -m lerobot_dataset_editor "$dataset_path" --summary 2>/dev/null | grep "Total episodes:" | cut -d: -f2 | tr -d ' ')
+    summary_output=$(python -m lero "$dataset_path" --summary 2>/dev/null | grep "Total episodes:" | cut -d: -f2 | tr -d ' ')
     
     if [[ -z "$summary_output" ]]; then
         print_error "Could not determine episode count from dataset"
@@ -161,7 +161,7 @@ copy_episodes() {
         print_info "[$current/$total_episodes] Processing episode $episode..."
         
         # Build command
-        local cmd="python -m lerobot_dataset_editor \"$dataset_path\" --copy $episode --instruction \"$instruction\""
+        local cmd="python -m lero \"$dataset_path\" --copy $episode --instruction \"$instruction\""
         if [[ "$dry_run" == "true" ]]; then
             cmd="$cmd --dry-run"
         fi

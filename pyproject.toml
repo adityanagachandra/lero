@@ -3,13 +3,13 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "lerobot-dataset-editor"
+name = "lero"
 version = "0.3.0"
-description = "A tool for editing and managing LeRobot datasets for robot imitation learning"
+description = "LERO - LeRobot dataset Operations toolkit for editing and managing LeRobot datasets"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 authors = [
-    { name = "Dataset Editor Team", email = "example@example.com" }
+    { name = "LERO Team", email = "example@example.com" }
 ]
 keywords = ["robotics", "dataset", "machine-learning", "imitation-learning", "lerobot"]
 classifiers = [
@@ -47,20 +47,20 @@ gui = [
 ]
 
 [project.scripts]
-lerobot-dataset-editor = "lerobot_dataset_editor.__main__:main"
+lero = "lero.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/example/lerobot-dataset-editor"
-Repository = "https://github.com/example/lerobot-dataset-editor"
-Documentation = "https://github.com/example/lerobot-dataset-editor#readme"
-"Bug Tracker" = "https://github.com/example/lerobot-dataset-editor/issues"
+Homepage = "https://github.com/example/lero"
+Repository = "https://github.com/example/lero"
+Documentation = "https://github.com/example/lero#readme"
+"Bug Tracker" = "https://github.com/example/lero/issues"
 
 [tool.hatch.version]
-path = "lerobot_dataset_editor/__init__.py"
+path = "lero/__init__.py"
 pattern = "__version__ = ['\"](?P<version>[^'\"]*)['\"]"
 
 [tool.hatch.build.targets.wheel]
-packages = ["lerobot_dataset_editor"]
+packages = ["lero"]
 
 [tool.black]
 line-length = 88
@@ -110,7 +110,7 @@ python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = [
-    "--cov=lerobot_dataset_editor",
+    "--cov=lero",
     "--cov-report=term-missing",
     "--cov-report=html",
     "--cov-report=xml",

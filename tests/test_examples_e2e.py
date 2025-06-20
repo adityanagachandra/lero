@@ -206,8 +206,8 @@ class TestExampleScriptIntegration:
             script_file = Path(script_path)
             if script_file.exists():
                 content = script_file.read_text()
-                # Should import from lerobot_dataset_editor
-                assert "from lerobot_dataset_editor import" in content
+                # Should import from lero
+                assert "from lero import" in content
                 # Should not import from old paths
                 assert "from dataset_editor import" not in content
     
@@ -217,10 +217,10 @@ class TestExampleScriptIntegration:
         
         if script_path.exists():
             content = script_path.read_text()
-            # Should use python -m lerobot_dataset_editor
-            assert "python -m lerobot_dataset_editor" in content
+            # Should use python -m lero
+            assert "python -m lero" in content
             # Should not use old command
-            assert "python lerobot_dataset_editor.py" not in content
+            assert "python lero.py" not in content
 
 
 class TestExampleScriptDocumentation:

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-LeRobot Dataset Editor - Main Entry Point
+LERO - LeRobot dataset Operations toolkit - Main Entry Point
 
-This is the main entry point for the LeRobot Dataset Editor.
+This is the main entry point for LERO (LeRobot dataset Operations toolkit).
 The actual implementation has been modularized for better maintainability.
 """
 

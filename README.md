@@ -1,6 +1,6 @@
-# LeRobot Dataset Editor
+# LERO - LeRobot dataset Operations toolkit
 
-A comprehensive tool for editing and managing LeRobot datasets for robot imitation learning. This tool efficiently handles LeRobot format datasets consisting of Parquet files, MP4 videos, and metadata with a modern, modular architecture.
+**LERO (LeRobot dataset Operations toolkit)** is a comprehensive toolkit for editing and managing LeRobot datasets for robot imitation learning. LERO provides powerful tools for LeRobot dataset editing, efficiently handling LeRobot format datasets consisting of Parquet files, MP4 videos, and metadata with a modern, modular architecture.
 
 ## Features
 
@@ -93,55 +93,55 @@ pip install pytest black isort mypy
 
 ```bash
 # Display dataset overview
-python -m lerobot_dataset_editor /path/to/dataset
+lero /path/to/dataset
 
 # Show detailed summary with statistics
-python -m lerobot_dataset_editor /path/to/dataset --summary
+lero /path/to/dataset --summary
 ```
 
 ### Episode Display
 
 ```bash
 # List episodes (default 10 episodes)
-python -m lerobot_dataset_editor /path/to/dataset --list
+lero /path/to/dataset --list
 
 # Display specific range (10 episodes starting from episode 20)
-python -m lerobot_dataset_editor /path/to/dataset --list 10 --list-start 20
+lero /path/to/dataset --list 10 --list-start 20
 
 # Show specific episode details
-python -m lerobot_dataset_editor /path/to/dataset --episode 5
+lero /path/to/dataset --episode 5
 
 # Include data sample in display
-python -m lerobot_dataset_editor /path/to/dataset --episode 5 --show-data
+lero /path/to/dataset --episode 5 --show-data
 ```
 
 ### Episode Operations
 
 ```bash
 # Delete episode 5 (remaining episodes are automatically renumbered)
-python -m lerobot_dataset_editor /path/to/dataset --delete 5
+lero /path/to/dataset --delete 5
 
 # Dry run deletion (preview what would be deleted)
-python -m lerobot_dataset_editor /path/to/dataset --delete 5 --dry-run
+lero /path/to/dataset --delete 5 --dry-run
 
 # Copy episode 3 with new instruction (added to the end of the dataset)
-python -m lerobot_dataset_editor /path/to/dataset --copy 3 --instruction "Move the block to the left"
+lero /path/to/dataset --copy 3 --instruction "Move the block to the left"
 
 # Dry run copy
-python -m lerobot_dataset_editor /path/to/dataset --copy 3 --instruction "New task" --dry-run
+lero /path/to/dataset --copy 3 --instruction "New task" --dry-run
 ```
 
 ### GUI Mode
 
 ```bash
 # Launch interactive GUI viewer
-python -m lerobot_dataset_editor /path/to/dataset --gui
+lero /path/to/dataset --gui
 
 # Launch GUI with specific episode
-python -m lerobot_dataset_editor /path/to/dataset --gui --episode 5
+lero /path/to/dataset --gui --episode 5
 
-# Direct GUI launch
-python -m lerobot_dataset_editor.gui.viewer /path/to/dataset --episode 5
+# Direct GUI launch  
+python -m lero.gui.viewer /path/to/dataset --episode 5
 ```
 
 ## Command Line Arguments
@@ -176,7 +176,7 @@ python -m lerobot_dataset_editor.gui.viewer /path/to/dataset --episode 5
 The project follows a clean, modular architecture:
 
 ```
-lerobot_dataset_editor/
+lero/
 ├── __init__.py           # Package entry point
 ├── __main__.py           # Main module entry point
 ├── dataset_editor/       # Core dataset editing module
@@ -303,13 +303,14 @@ The architecture is extensible to support additional robot types.
 
 ```
 .
-├── lerobot_dataset_editor/   # Main package directory
+├── lero/                    # Main package directory
 │   ├── dataset_editor/      # Core dataset editing module
 │   ├── gui/                 # GUI components module
 │   ├── __init__.py          # Package entry point
 │   └── __main__.py          # Module entry point
 ├── examples/                # Example scripts and documentation
 ├── media/                   # Screenshots and assets
+├── tests/                   # Test suite
 ├── pyproject.toml           # Project configuration
 ├── README.md                # This file
 └── LICENSE                  # Apache 2.0 license
@@ -329,16 +330,16 @@ uv run black .
 uv run isort .
 
 # Type checking
-uv run mypy lerobot_dataset_editor/
+uv run mypy lero/
 
 # Run the tool in development
-python -m lerobot_dataset_editor --help
+lero --help
 ```
 
 ### API Usage
 
 ```python
-from lerobot_dataset_editor import LeRobotDatasetEditor
+from lero import LeRobotDatasetEditor
 
 # Initialize editor
 editor = LeRobotDatasetEditor("/path/to/dataset")
@@ -353,7 +354,7 @@ editor.delete_episode(5, dry_run=True)  # Preview deletion
 editor.copy_episode_with_new_instruction(3, "New task")
 
 # Launch GUI programmatically
-from lerobot_dataset_editor.gui import launch_episode_viewer
+from lero.gui import launch_episode_viewer
 launch_episode_viewer("/path/to/dataset", episode_index=5)
 ```
 

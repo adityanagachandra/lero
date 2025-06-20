@@ -17,8 +17,8 @@ class TestGUIStartup:
     def test_gui_import_availability(self):
         """Test that GUI modules can be imported."""
         try:
-            from lerobot_dataset_editor.gui import viewer
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import viewer
+            from lero.gui import launch_episode_viewer
             assert True  # If we get here, imports succeeded
         except ImportError as e:
             pytest.skip(f"GUI dependencies not available: {e}")
@@ -43,7 +43,7 @@ class TestGUIStartup:
         mock_tk.return_value = mock_root
         
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             
             # This should not raise an exception with mocked GUI
             launch_episode_viewer(str(sample_dataset), episode_index=0)
@@ -64,11 +64,11 @@ class TestGUIModuleStructure:
     def test_gui_module_components_exist(self):
         """Test that expected GUI components exist."""
         try:
-            from lerobot_dataset_editor.gui import viewer
-            from lerobot_dataset_editor.gui import video_component
-            from lerobot_dataset_editor.gui import plot_component
-            from lerobot_dataset_editor.gui import controls
-            from lerobot_dataset_editor.gui import data_handler
+            from lero.gui import viewer
+            from lero.gui import video_component
+            from lero.gui import plot_component
+            from lero.gui import controls
+            from lero.gui import data_handler
             
             # Check that main classes exist
             assert hasattr(viewer, 'EpisodeGUIViewer')
@@ -81,7 +81,7 @@ class TestGUIModuleStructure:
     def test_gui_viewer_class_structure(self):
         """Test GUI viewer class has expected methods."""
         try:
-            from lerobot_dataset_editor.gui.viewer import EpisodeGUIViewer
+            from lero.gui.viewer import EpisodeGUIViewer
             
             # Check that expected methods exist
             expected_methods = [
@@ -101,7 +101,7 @@ class TestGUIModuleStructure:
     def test_gui_launch_function_signature(self):
         """Test GUI launch function has correct signature."""
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             import inspect
             
             sig = inspect.signature(launch_episode_viewer)
@@ -133,14 +133,14 @@ class TestGUIIntegration:
         
         # May fail with GUI startup errors, but that's expected in headless environment
     
-    @patch('lerobot_dataset_editor.gui.viewer.EpisodeGUIViewer')
+    @patch('lero.gui.viewer.EpisodeGUIViewer')
     def test_gui_dataset_integration_mock(self, mock_viewer_class, sample_dataset):
         """Test GUI integration with dataset using mocks."""
         mock_viewer = MagicMock()
         mock_viewer_class.return_value = mock_viewer
         
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             
             # Should create viewer with dataset path
             launch_episode_viewer(str(sample_dataset), episode_index=1)
@@ -159,7 +159,7 @@ class TestGUIIntegration:
 class TestGUIErrorHandling:
     """Test GUI error handling scenarios."""
     
-    @patch('lerobot_dataset_editor.gui.viewer.EpisodeGUIViewer')
+    @patch('lero.gui.viewer.EpisodeGUIViewer')
     def test_gui_invalid_dataset_handling(self, mock_viewer_class, temp_dir):
         """Test GUI handling of invalid dataset."""
         mock_viewer = MagicMock()
@@ -169,7 +169,7 @@ class TestGUIErrorHandling:
         mock_viewer_class.side_effect = Exception("Invalid dataset")
         
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             
             invalid_path = temp_dir / "nonexistent"
             
@@ -182,14 +182,14 @@ class TestGUIErrorHandling:
         except ImportError:
             pytest.skip("GUI dependencies not available")
     
-    @patch('lerobot_dataset_editor.gui.viewer.EpisodeGUIViewer')
+    @patch('lero.gui.viewer.EpisodeGUIViewer')
     def test_gui_invalid_episode_handling(self, mock_viewer_class, sample_dataset):
         """Test GUI handling of invalid episode index."""
         mock_viewer = MagicMock()
         mock_viewer_class.return_value = mock_viewer
         
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             
             # Should handle invalid episode index
             # (May not raise error immediately, but should handle gracefully)
@@ -236,7 +236,7 @@ class TestGUIOptionalDependencies:
         try:
             # Now try to import GUI components
             with pytest.raises(ImportError):
-                from lerobot_dataset_editor.gui import launch_episode_viewer
+                from lero.gui import launch_episode_viewer
                 launch_episode_viewer("/dummy/path")
         
         finally:
@@ -248,7 +248,7 @@ class TestGUIOptionalDependencies:
 class TestGUIPerformance:
     """Test GUI performance characteristics."""
     
-    @patch('lerobot_dataset_editor.gui.viewer.EpisodeGUIViewer')
+    @patch('lero.gui.viewer.EpisodeGUIViewer')
     def test_gui_startup_performance(self, mock_viewer_class, sample_dataset):
         """Test GUI startup performance."""
         import time
@@ -257,7 +257,7 @@ class TestGUIPerformance:
         mock_viewer_class.return_value = mock_viewer
         
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             
             start_time = time.time()
             launch_episode_viewer(str(sample_dataset))
@@ -270,7 +270,7 @@ class TestGUIPerformance:
         except ImportError:
             pytest.skip("GUI dependencies not available")
     
-    @patch('lerobot_dataset_editor.gui.viewer.EpisodeGUIViewer')
+    @patch('lero.gui.viewer.EpisodeGUIViewer')
     def test_gui_memory_usage(self, mock_viewer_class, sample_dataset):
         """Test that GUI creation doesn't cause obvious memory leaks."""
         import gc
@@ -279,7 +279,7 @@ class TestGUIPerformance:
         mock_viewer_class.return_value = mock_viewer
         
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             
             # Create and destroy GUI multiple times
             for _ in range(5):
@@ -296,14 +296,14 @@ class TestGUIPerformance:
 class TestGUIAccessibility:
     """Test GUI accessibility and usability features."""
     
-    @patch('lerobot_dataset_editor.gui.viewer.EpisodeGUIViewer')
+    @patch('lero.gui.viewer.EpisodeGUIViewer')
     def test_gui_keyboard_accessibility(self, mock_viewer_class, sample_dataset):
         """Test that GUI components can be created (keyboard navigation setup)."""
         mock_viewer = MagicMock()
         mock_viewer_class.return_value = mock_viewer
         
         try:
-            from lerobot_dataset_editor.gui import launch_episode_viewer
+            from lero.gui import launch_episode_viewer
             
             launch_episode_viewer(str(sample_dataset))
             
@@ -316,9 +316,9 @@ class TestGUIAccessibility:
     def test_gui_component_separation(self):
         """Test that GUI components are properly separated."""
         try:
-            from lerobot_dataset_editor.gui import video_component
-            from lerobot_dataset_editor.gui import plot_component
-            from lerobot_dataset_editor.gui import controls
+            from lero.gui import video_component
+            from lero.gui import plot_component
+            from lero.gui import controls
             
             # Each component should be in a separate module
             assert video_component.__file__ != plot_component.__file__

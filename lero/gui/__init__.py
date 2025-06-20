@@ -1,5 +1,5 @@
 """
-GUI module for LeRobot Dataset Editor
+GUI module for LERO - LeRobot dataset Operations toolkit
 
 This module provides GUI components for viewing and editing LeRobot datasets.
 """
