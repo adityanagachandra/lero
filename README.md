@@ -2,6 +2,8 @@
 
 **LERO (LeRobot dataset Operations toolkit)** is a comprehensive toolkit for editing and managing LeRobot datasets for robot imitation learning. LERO provides powerful tools for LeRobot dataset editing, efficiently handling LeRobot format datasets consisting of Parquet files, MP4 videos, and metadata with a modern, modular architecture.
 
+![demo](media/lero-demo-movie.gif)
+
 ## Features
 
 ### Core Functionality
