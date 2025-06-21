@@ -176,10 +176,18 @@ class MetadataManager:
             length: Length of the episode
             tasks: List of task descriptions
         """
+        # For consistency with existing format, use the first task as the main task
+        task = tasks[0] if tasks else "Unknown task"
+        
+        # Get or create task index
+        task_index = self.add_or_get_task(task)
+        
         new_episode = {
             "episode_index": episode_index,
+            "task": task,
+            "task_index": task_index,
             "length": length,
-            "tasks": tasks
+            "timestamp": f"2024-01-01T10:00:00"  # Default timestamp
         }
         
         self.episodes.append(new_episode)

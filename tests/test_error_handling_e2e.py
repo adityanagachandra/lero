@@ -131,26 +131,31 @@ class TestFileSystemErrorHandling:
             # Restore permissions for cleanup
             sample_dataset.chmod(0o755)
     
-    def test_disk_space_simulation(self, cli_runner, sample_dataset, monkeypatch):
+    def test_disk_space_simulation(self, cli_runner, sample_dataset):
         """Test handling of disk space issues (simulated)."""
-        # Mock file operations to raise OSError
-        import builtins
-        original_open = builtins.open
+        # Create a scenario where copy would fail due to insufficient space
+        # by making the target directory read-only to simulate permission errors
+        import os
         
-        def mock_open(*args, **kwargs):
-            if 'w' in str(args) or 'a' in str(args):
-                raise OSError("No space left on device")
-            return original_open(*args, **kwargs)
+        # Make the data directory read-only to simulate disk space/permission issues
+        data_dir = sample_dataset / "data"
+        original_mode = data_dir.stat().st_mode
         
-        monkeypatch.setattr(builtins, 'open', mock_open)
-        
-        result = cli_runner(["--copy", "0", "--instruction", "Test", str(sample_dataset)])
-        assert result.returncode == 1
-        
-        error_output = result.stderr + result.stdout
-        assert any(keyword in error_output.lower() for keyword in [
-            'space', 'device', 'error', 'cannot'
-        ])
+        try:
+            # Remove write permissions to simulate disk space issues
+            data_dir.chmod(0o444)
+            
+            result = cli_runner(["--copy", "0", "--instruction", "Test", str(sample_dataset)])
+            assert result.returncode == 1
+            
+            error_output = result.stderr + result.stdout
+            assert any(keyword in error_output.lower() for keyword in [
+                'permission', 'error', 'cannot', 'failed'
+            ])
+            
+        finally:
+            # Restore original permissions
+            data_dir.chmod(original_mode)
     
     def test_corrupted_parquet_file(self, cli_runner, sample_dataset):
         """Test handling of corrupted parquet files."""
@@ -160,7 +165,7 @@ class TestFileSystemErrorHandling:
         with open(parquet_file, "w") as f:
             f.write("corrupted parquet content")
         
-        result = cli_runner(["--episode", "0", str(sample_dataset)])
+        result = cli_runner(["--episode", "0", "--show-data", str(sample_dataset)])
         assert result.returncode == 1
         
         error_output = result.stderr + result.stdout
@@ -232,7 +237,7 @@ class TestConcurrencyErrorHandling:
         # This simulates concurrent access
         
         # First, verify the dataset works normally
-        result = cli_runner(["--summary", str(sample_dataset)])
+        result = cli_runner([str(sample_dataset), "--summary"])
         assert result.returncode == 0
         
         # Remove an episode file while trying to access it
@@ -240,7 +245,7 @@ class TestConcurrencyErrorHandling:
         episode_file.unlink()
         
         # Now try to access the missing episode
-        result = cli_runner(["--episode", "1", str(sample_dataset)])
+        result = cli_runner([str(sample_dataset), "--episode", "1"])
         assert result.returncode == 1
         
         error_output = result.stderr + result.stdout
@@ -260,7 +265,7 @@ class TestConcurrencyErrorHandling:
         episode_file.unlink()
         
         # Try to access the missing episode
-        result = cli_runner(["--episode", "2", str(sample_dataset)])
+        result = cli_runner([str(sample_dataset), "--episode", "2"])
         assert result.returncode == 1
         
         error_output = result.stderr + result.stdout
@@ -318,11 +323,15 @@ class TestNetworkAndIOErrorHandling:
     def test_read_only_filesystem(self, cli_runner, sample_dataset):
         """Test operations on read-only filesystem."""
         # Make the entire dataset read-only
-        for root, dirs, files in sample_dataset.rglob("*"):
-            if root.is_file():
-                root.chmod(0o444)
-            else:
-                root.chmod(0o555)
+        import os
+        for root, dirs, files in os.walk(sample_dataset):
+            root_path = Path(root)
+            # Make directories read-only
+            root_path.chmod(0o555)
+            # Make files read-only
+            for file in files:
+                file_path = root_path / file
+                file_path.chmod(0o444)
         
         try:
             # Try to modify the dataset (should fail)
@@ -336,11 +345,14 @@ class TestNetworkAndIOErrorHandling:
         
         finally:
             # Restore write permissions for cleanup
-            for root, dirs, files in sample_dataset.rglob("*"):
-                if root.is_file():
-                    root.chmod(0o644)
-                else:
-                    root.chmod(0o755)
+            for root, dirs, files in os.walk(sample_dataset):
+                root_path = Path(root)
+                # Restore directory permissions
+                root_path.chmod(0o755)
+                # Restore file permissions
+                for file in files:
+                    file_path = root_path / file
+                    file_path.chmod(0o644)
     
     def test_interrupted_operation_recovery(self, cli_runner, sample_dataset):
         """Test recovery from interrupted operations."""

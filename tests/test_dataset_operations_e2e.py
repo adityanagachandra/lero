@@ -50,17 +50,18 @@ class TestDatasetDeletionE2E:
         final_count = episode_counter(sample_dataset)
         assert final_count == 2
         
-        # Verify episode 1 files are gone
+        # Verify episode files are renumbered correctly
+        # After deleting episode 1, episode 2 should be renumbered to episode 1
         data_file = sample_dataset / "data" / "chunk-000" / "episode_000001.parquet"
-        assert not data_file.exists()
+        assert data_file.exists()  # Should exist (it's the renamed episode 2)
         
-        # Verify episode 2 was renumbered to episode 1
-        new_episode_1_data = episode_data_reader(sample_dataset, 1)
-        assert new_episode_1_data["exists"]
-        
-        # Verify old episode 2 file is gone (it should be renumbered)
+        # Verify episode 2 file no longer exists (was renamed to episode 1)
         old_episode_2_file = sample_dataset / "data" / "chunk-000" / "episode_000002.parquet"
         assert not old_episode_2_file.exists()
+        
+        # Verify episode 1 still exists in metadata (it's the old episode 2, renumbered)
+        new_episode_1_data = episode_data_reader(sample_dataset, 1)
+        assert new_episode_1_data["exists"]
     
     def test_delete_first_episode(self, cli_runner, sample_dataset, episode_counter):
         """Test deleting the first episode."""

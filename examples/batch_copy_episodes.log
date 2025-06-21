@@ -23,3 +23,203 @@
 2025-06-20 23:26:06 - __main__ - INFO - ============================================================
 2025-06-20 23:26:07 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmpedp3cznh/nonexistent
 2025-06-20 23:26:12 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 07:37:53 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 07:37:53 - __main__ - INFO - ============================================================
+2025-06-21 07:37:53 - __main__ - INFO - Starting batch copy operation
+2025-06-21 07:37:53 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 07:37:53 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 07:37:53 - __main__ - INFO - Dry run mode: True
+2025-06-21 07:37:53 - __main__ - INFO - Continue on error: True
+2025-06-21 07:37:53 - __main__ - INFO - ============================================================
+2025-06-21 07:37:53 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 07:37:53 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 07:37:53 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 07:37:53 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 07:37:53 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 07:37:53 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 07:37:53 - __main__ - INFO - ============================================================
+2025-06-21 07:37:53 - __main__ - INFO - Batch copy operation completed
+2025-06-21 07:37:53 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 07:37:53 - __main__ - INFO - Successful copies: 2
+2025-06-21 07:37:53 - __main__ - INFO - Failed copies: 0
+2025-06-21 07:37:53 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 07:37:53 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-21 07:37:53 - __main__ - INFO - All operations completed successfully
+2025-06-21 07:37:53 - __main__ - INFO - ============================================================
+2025-06-21 07:37:55 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmpuj55z6k6/nonexistent
+2025-06-21 07:38:00 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 08:22:10 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 08:22:10 - __main__ - INFO - ============================================================
+2025-06-21 08:22:10 - __main__ - INFO - Starting batch copy operation
+2025-06-21 08:22:10 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 08:22:10 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 08:22:10 - __main__ - INFO - Dry run mode: True
+2025-06-21 08:22:10 - __main__ - INFO - Continue on error: True
+2025-06-21 08:22:10 - __main__ - INFO - ============================================================
+2025-06-21 08:22:10 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 08:22:10 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 08:22:10 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 08:22:10 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 08:22:10 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 08:22:10 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 08:22:10 - __main__ - INFO - ============================================================
+2025-06-21 08:22:10 - __main__ - INFO - Batch copy operation completed
+2025-06-21 08:22:10 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 08:22:10 - __main__ - INFO - Successful copies: 2
+2025-06-21 08:22:10 - __main__ - INFO - Failed copies: 0
+2025-06-21 08:22:10 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 08:22:10 - __main__ - INFO - Duration: 0.20 seconds
+2025-06-21 08:22:10 - __main__ - INFO - All operations completed successfully
+2025-06-21 08:22:10 - __main__ - INFO - ============================================================
+2025-06-21 08:22:12 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmpequvsgxi/nonexistent
+2025-06-21 08:22:17 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 08:25:28 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 08:25:28 - __main__ - INFO - ============================================================
+2025-06-21 08:25:28 - __main__ - INFO - Starting batch copy operation
+2025-06-21 08:25:28 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 08:25:28 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 08:25:28 - __main__ - INFO - Dry run mode: True
+2025-06-21 08:25:28 - __main__ - INFO - Continue on error: True
+2025-06-21 08:25:28 - __main__ - INFO - ============================================================
+2025-06-21 08:25:28 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 08:25:28 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 08:25:28 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 08:25:28 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 08:25:28 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 08:25:28 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 08:25:29 - __main__ - INFO - ============================================================
+2025-06-21 08:25:29 - __main__ - INFO - Batch copy operation completed
+2025-06-21 08:25:29 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 08:25:29 - __main__ - INFO - Successful copies: 2
+2025-06-21 08:25:29 - __main__ - INFO - Failed copies: 0
+2025-06-21 08:25:29 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 08:25:29 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-21 08:25:29 - __main__ - INFO - All operations completed successfully
+2025-06-21 08:25:29 - __main__ - INFO - ============================================================
+2025-06-21 08:25:31 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmpue_ymm98/nonexistent
+2025-06-21 08:25:40 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 08:35:05 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 08:35:05 - __main__ - INFO - ============================================================
+2025-06-21 08:35:05 - __main__ - INFO - Starting batch copy operation
+2025-06-21 08:35:05 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 08:35:05 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 08:35:05 - __main__ - INFO - Dry run mode: True
+2025-06-21 08:35:05 - __main__ - INFO - Continue on error: True
+2025-06-21 08:35:05 - __main__ - INFO - ============================================================
+2025-06-21 08:35:05 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 08:35:05 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 08:35:05 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 08:35:05 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 08:35:05 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 08:35:05 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 08:35:06 - __main__ - INFO - ============================================================
+2025-06-21 08:35:06 - __main__ - INFO - Batch copy operation completed
+2025-06-21 08:35:06 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 08:35:06 - __main__ - INFO - Successful copies: 2
+2025-06-21 08:35:06 - __main__ - INFO - Failed copies: 0
+2025-06-21 08:35:06 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 08:35:06 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-21 08:35:06 - __main__ - INFO - All operations completed successfully
+2025-06-21 08:35:06 - __main__ - INFO - ============================================================
+2025-06-21 08:35:08 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmpz10cuomu/nonexistent
+2025-06-21 08:35:16 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 08:46:15 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 08:46:15 - __main__ - INFO - ============================================================
+2025-06-21 08:46:15 - __main__ - INFO - Starting batch copy operation
+2025-06-21 08:46:15 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 08:46:15 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 08:46:15 - __main__ - INFO - Dry run mode: True
+2025-06-21 08:46:15 - __main__ - INFO - Continue on error: True
+2025-06-21 08:46:15 - __main__ - INFO - ============================================================
+2025-06-21 08:46:15 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 08:46:15 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 08:46:15 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 08:46:15 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 08:46:15 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 08:46:15 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 08:46:15 - __main__ - INFO - ============================================================
+2025-06-21 08:46:15 - __main__ - INFO - Batch copy operation completed
+2025-06-21 08:46:15 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 08:46:15 - __main__ - INFO - Successful copies: 2
+2025-06-21 08:46:15 - __main__ - INFO - Failed copies: 0
+2025-06-21 08:46:15 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 08:46:15 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-21 08:46:15 - __main__ - INFO - All operations completed successfully
+2025-06-21 08:46:15 - __main__ - INFO - ============================================================
+2025-06-21 08:46:17 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmpickh48yf/nonexistent
+2025-06-21 08:46:26 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 08:52:47 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 08:52:47 - __main__ - INFO - ============================================================
+2025-06-21 08:52:47 - __main__ - INFO - Starting batch copy operation
+2025-06-21 08:52:47 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 08:52:47 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 08:52:47 - __main__ - INFO - Dry run mode: True
+2025-06-21 08:52:47 - __main__ - INFO - Continue on error: True
+2025-06-21 08:52:47 - __main__ - INFO - ============================================================
+2025-06-21 08:52:47 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 08:52:47 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 08:52:47 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 08:52:47 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 08:52:47 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 08:52:47 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 08:52:48 - __main__ - INFO - ============================================================
+2025-06-21 08:52:48 - __main__ - INFO - Batch copy operation completed
+2025-06-21 08:52:48 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 08:52:48 - __main__ - INFO - Successful copies: 2
+2025-06-21 08:52:48 - __main__ - INFO - Failed copies: 0
+2025-06-21 08:52:48 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 08:52:48 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-21 08:52:48 - __main__ - INFO - All operations completed successfully
+2025-06-21 08:52:48 - __main__ - INFO - ============================================================
+2025-06-21 08:52:50 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmp9p9asm2p/nonexistent
+2025-06-21 08:52:59 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 08:59:31 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 08:59:31 - __main__ - INFO - ============================================================
+2025-06-21 08:59:31 - __main__ - INFO - Starting batch copy operation
+2025-06-21 08:59:31 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 08:59:31 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 08:59:31 - __main__ - INFO - Dry run mode: True
+2025-06-21 08:59:31 - __main__ - INFO - Continue on error: True
+2025-06-21 08:59:31 - __main__ - INFO - ============================================================
+2025-06-21 08:59:31 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 08:59:31 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 08:59:31 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 08:59:31 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 08:59:31 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 08:59:31 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 08:59:31 - __main__ - INFO - ============================================================
+2025-06-21 08:59:31 - __main__ - INFO - Batch copy operation completed
+2025-06-21 08:59:31 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 08:59:31 - __main__ - INFO - Successful copies: 2
+2025-06-21 08:59:31 - __main__ - INFO - Failed copies: 0
+2025-06-21 08:59:31 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 08:59:31 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-21 08:59:31 - __main__ - INFO - All operations completed successfully
+2025-06-21 08:59:31 - __main__ - INFO - ============================================================
+2025-06-21 08:59:33 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmp852pyq4n/nonexistent
+2025-06-21 08:59:38 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-21 09:02:02 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-21 09:02:02 - __main__ - INFO - ============================================================
+2025-06-21 09:02:02 - __main__ - INFO - Starting batch copy operation
+2025-06-21 09:02:02 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-21 09:02:02 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-21 09:02:02 - __main__ - INFO - Dry run mode: True
+2025-06-21 09:02:02 - __main__ - INFO - Continue on error: True
+2025-06-21 09:02:02 - __main__ - INFO - ============================================================
+2025-06-21 09:02:02 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-21 09:02:02 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-21 09:02:02 - __main__ - INFO - Episode 0 would be copied
+2025-06-21 09:02:03 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-21 09:02:03 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-21 09:02:03 - __main__ - INFO - Episode 1 would be copied
+2025-06-21 09:02:03 - __main__ - INFO - ============================================================
+2025-06-21 09:02:03 - __main__ - INFO - Batch copy operation completed
+2025-06-21 09:02:03 - __main__ - INFO - Total episodes processed: 2
+2025-06-21 09:02:03 - __main__ - INFO - Successful copies: 2
+2025-06-21 09:02:03 - __main__ - INFO - Failed copies: 0
+2025-06-21 09:02:03 - __main__ - INFO - Skipped episodes: 0
+2025-06-21 09:02:03 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-21 09:02:03 - __main__ - INFO - All operations completed successfully
+2025-06-21 09:02:03 - __main__ - INFO - ============================================================
+2025-06-21 09:02:05 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmp4b2morya/nonexistent
+2025-06-21 09:02:14 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path

@@ -135,6 +135,10 @@ Examples:
             print(ErrorMessages.INVALID_DATASET_PATH.format(path=dataset_path))
             return False
         
+        # Validate dataset structure
+        if not self._validate_dataset_structure(dataset_path):
+            return False
+        
         # Validate copy operation requires instruction
         if args.copy is not None and not args.instruction:
             print(ErrorMessages.INSTRUCTION_REQUIRED)
@@ -154,6 +158,49 @@ Examples:
         
         if args.list_start < 0:
             print("Error: --list-start must be non-negative")
+            return False
+        
+        return True
+    
+    def _validate_dataset_structure(self, dataset_path: Path) -> bool:
+        """
+        Validate dataset structure and required files.
+        
+        Args:
+            dataset_path: Path to the dataset
+            
+        Returns:
+            True if valid, False otherwise
+        """
+        # Check required directories
+        required_dirs = ["meta", "data"]
+        for dir_name in required_dirs:
+            if not (dataset_path / dir_name).exists():
+                print(f"Error: Missing required directory: {dir_name}")
+                return False
+        
+        # Check required metadata files
+        required_files = ["meta/info.json", "meta/episodes.jsonl", "meta/tasks.jsonl"]
+        for file_path in required_files:
+            if not (dataset_path / file_path).exists():
+                print(f"Error: Missing required file: {file_path}")
+                return False
+        
+        # Validate info.json structure
+        try:
+            import json
+            with open(dataset_path / "meta" / "info.json", "r") as f:
+                info = json.load(f)
+                
+            # Check required fields
+            required_fields = ["total_episodes", "robot_type"]
+            for field in required_fields:
+                if field not in info:
+                    print(f"Error: Missing required field in info.json: {field}")
+                    return False
+                    
+        except Exception as e:
+            print(f"Error: Invalid info.json: {e}")
             return False
         
         return True
@@ -187,17 +234,25 @@ Examples:
                 executed_operation = True
             
             if args.episode is not None:
-                editor.display_episode(args.episode, show_data_sample=args.show_data)
+                try:
+                    editor.display_episode(args.episode, show_data_sample=args.show_data)
+                except ValueError as e:
+                    print(f"Error: {e}")
+                    return 1
                 executed_operation = True
             
             if args.delete is not None:
-                editor.delete_episode(args.delete, dry_run=args.dry_run)
+                success = editor.delete_episode(args.delete, dry_run=args.dry_run)
+                if not success:
+                    return 1
                 executed_operation = True
             
             if args.copy is not None:
-                editor.copy_episode_with_new_instruction(
+                success = editor.copy_episode_with_new_instruction(
                     args.copy, args.instruction, dry_run=args.dry_run
                 )
+                if not success:
+                    return 1
                 executed_operation = True
             
             # If no specific action is requested, show summary
@@ -227,6 +282,9 @@ Examples:
             return 0
         except ImportError:
             print(ErrorMessages.GUI_DEPENDENCIES_MISSING)
+            return 1
+        except Exception as e:
+            print(f"Error: Failed to launch GUI: {e}")
             return 1
     
     def run(self, args=None) -> int:

@@ -26,11 +26,10 @@ try:
     from matplotlib.figure import Figure
     from PIL import Image, ImageTk
 except ImportError as e:
-    print(f"GUI dependencies not available: {e}")
-    print("Install with: uv sync --group gui")
-    sys.exit(1)
+    # Re-raise ImportError to be handled by the GUI __init__.py
+    raise ImportError(f"GUI dependencies not available: {e}") from e
 
-from lerobot_dataset_editor import LeRobotDatasetEditor
+from lero import LeRobotDatasetEditor
 from .constants import (
     WINDOW_WIDTH, WINDOW_HEIGHT, BASE_FPS, MIN_DELAY_MS, 
     VIDEO_UPDATE_SPEED_THRESHOLD
@@ -286,6 +285,23 @@ class EpisodeGUIViewer:
             if self.control_panel:
                 self.control_panel.update_play_button_text("Play")
     
+    # Public API methods for testing and external use
+    def setup_gui(self) -> None:
+        """Public wrapper for GUI setup."""
+        self._setup_gui()
+    
+    def load_episode(self, episode_index: int) -> None:
+        """Public wrapper for loading an episode."""
+        self._load_episode(episode_index)
+    
+    def update_display(self, update_timeline: bool = True, update_video: bool = True) -> None:
+        """Public wrapper for updating the display."""
+        self._update_display(update_timeline, update_video)
+    
+    def on_episode_change(self, episode_index: int) -> None:
+        """Handle episode change events."""
+        self.load_episode(episode_index)
+    
     def run(self) -> None:
         """Start the GUI main loop."""
         if self.root:
@@ -318,7 +334,8 @@ def launch_episode_viewer(dataset_path: str, episode_index: Optional[int] = None
         viewer.run()
         
     except Exception as e:
-        messagebox.showerror("Error", f"Failed to launch viewer: {e}")
+        # Re-raise the exception for proper error handling in tests and CLI
+        raise e
 
 
 if __name__ == "__main__":

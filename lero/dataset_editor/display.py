@@ -38,17 +38,20 @@ class DisplayFormatter:
         
         # Show data sample if requested and file exists
         if show_data_sample and episode_info['data_exists']:
-            DisplayFormatter._show_data_sample(episode_info['data_file'])
+            if not DisplayFormatter._show_data_sample(episode_info['data_file']):
+                raise ValueError("Failed to read data file")
     
     @staticmethod
-    def _show_data_sample(data_file_path) -> None:
+    def _show_data_sample(data_file_path) -> bool:
         """Show a sample of the data file."""
         try:
             df = pd.read_parquet(data_file_path)
-            print(f"\nData sample (first 5 rows of {len(df)} total):")
+            print(f"\nData Sample (first 5 rows of {len(df)} total):")
             print(df.head().to_string())
+            return True
         except Exception as e:
             print(f"\nError reading data file: {e}")
+            return False
     
     @staticmethod
     def list_episodes(operations, start: int = 0, count: int = 10) -> None:
@@ -86,7 +89,7 @@ class DisplayFormatter:
             tasks: List of task dictionaries
         """
         print(f"\n=== Dataset Summary ===")
-        print(f"Dataset path: {summary['dataset_path']}")
+        print(f"Dataset Path: {summary['dataset_path']}")
         print(f"Total episodes: {summary['total_episodes']}")
         print(f"Total frames: {summary.get('total_frames', 'Unknown')}")
         print(f"Total tasks: {summary['total_tasks']}")

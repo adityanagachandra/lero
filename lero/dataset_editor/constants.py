@@ -41,7 +41,7 @@ class ErrorMessages:
     EPISODE_DELETE_ERROR = "Error deleting episode {index}: {error}"
     EPISODE_COPY_ERROR = "Error copying episode {index}: {error}"
     GUI_DEPENDENCIES_MISSING = "GUI dependencies not available.\nInstall with: uv sync --group gui"
-    INVALID_DATASET_PATH = "Invalid dataset path: {path}"
+    INVALID_DATASET_PATH = "Error: Invalid dataset path: {path}"
 
 # Success messages
 class SuccessMessages:

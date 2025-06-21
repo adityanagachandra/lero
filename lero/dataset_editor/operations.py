@@ -56,6 +56,10 @@ class DatasetOperations:
         paths = self.file_manager.get_episode_file_paths(episode_index, video_features)
         existence = self.file_manager.check_episode_files_exist(paths)
         
+        # Check if the data file exists - this is critical for episode access
+        if not existence['data']:
+            raise ValueError(f"Episode {episode_index} data file not found: {paths['data']}")
+        
         # Extract task descriptions
         task_descriptions = episode_meta.get("tasks", DEFAULT_TASK_LIST)
         

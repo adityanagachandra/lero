@@ -187,7 +187,7 @@ class TestExampleScriptErrorHandling:
         assert result.returncode == 1
         error_output = result.stderr + result.stdout
         assert any(keyword in error_output.lower() for keyword in [
-            'error', 'not found', 'does not exist'
+            'invalid', 'failed', 'critical issues'
         ])
 
 

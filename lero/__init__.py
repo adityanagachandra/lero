@@ -18,4 +18,10 @@ __version__ = "0.3.0"
 
 from .dataset_editor.core import LeRobotDatasetEditor
 
-__all__ = ["LeRobotDatasetEditor"]
+# Conditionally import GUI module
+try:
+    from . import gui
+    __all__ = ["LeRobotDatasetEditor", "gui"]
+except ImportError:
+    # GUI dependencies not available
+    __all__ = ["LeRobotDatasetEditor"]

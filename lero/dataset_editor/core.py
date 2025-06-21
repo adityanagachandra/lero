@@ -50,11 +50,8 @@ class LeRobotDatasetEditor:
             episode_index: Index of the episode to display
             show_data_sample: Whether to show a sample of the data
         """
-        try:
-            episode_info = self.get_episode_info(episode_index)
-            DisplayFormatter.display_episode(episode_info, show_data_sample)
-        except ValueError as e:
-            print(f"Error: {e}")
+        episode_info = self.get_episode_info(episode_index)
+        DisplayFormatter.display_episode(episode_info, show_data_sample)
     
     def list_episodes(self, start: int = 0, count: int = 10) -> None:
         """

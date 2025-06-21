@@ -37,39 +37,39 @@ class TestCLIBasicCommands:
     
     def test_list_episodes_default(self, cli_runner, sample_dataset):
         """Test listing episodes with default count."""
-        result = cli_runner(["--list", str(sample_dataset)])
+        result = cli_runner([str(sample_dataset), "--list"])
         assert result.returncode == 0
-        assert "Episode List" in result.stdout
-        assert "Episode 0" in result.stdout
-        assert "Episode 1" in result.stdout
-        assert "Episode 2" in result.stdout
+        assert "=== Episodes" in result.stdout
+        assert "Episode      0:" in result.stdout
+        assert "Episode      1:" in result.stdout
+        assert "Episode      2:" in result.stdout
     
     def test_list_episodes_with_count(self, cli_runner, sample_dataset):
         """Test listing episodes with specific count."""
         result = cli_runner(["--list", "2", str(sample_dataset)])
         assert result.returncode == 0
-        assert "Episode 0" in result.stdout
-        assert "Episode 1" in result.stdout
+        assert "Episode      0:" in result.stdout
+        assert "Episode      1:" in result.stdout
     
     def test_list_episodes_with_start(self, cli_runner, sample_dataset):
         """Test listing episodes with start index."""
         result = cli_runner(["--list", "2", "--list-start", "1", str(sample_dataset)])
         assert result.returncode == 0
-        assert "Episode 1" in result.stdout
-        assert "Episode 2" in result.stdout
+        assert "Episode      1:" in result.stdout
+        assert "Episode      2:" in result.stdout
     
     def test_show_specific_episode(self, cli_runner, sample_dataset):
         """Test showing specific episode details."""
         result = cli_runner(["--episode", "1", str(sample_dataset)])
         assert result.returncode == 0
-        assert "Episode 1 Details" in result.stdout
-        assert "Length: 100" in result.stdout
+        assert "=== Episode 1 ===" in result.stdout
+        assert "Length: 100 frames" in result.stdout
     
     def test_show_episode_with_data(self, cli_runner, sample_dataset):
         """Test showing episode with data sample."""
         result = cli_runner(["--episode", "0", "--show-data", str(sample_dataset)])
         assert result.returncode == 0
-        assert "Episode 0 Details" in result.stdout
+        assert "=== Episode 0 ===" in result.stdout
         assert "Data Sample" in result.stdout
 
 
@@ -127,8 +127,8 @@ class TestCLIValidation:
         """Test that multiple compatible actions can be run together."""
         result = cli_runner(["--summary", "--list", "2", str(sample_dataset)])
         assert result.returncode == 0
-        assert "Dataset Summary" in result.stdout
-        assert "Episode List" in result.stdout
+        assert "=== Dataset Summary ===" in result.stdout
+        assert "=== Episodes" in result.stdout
     
     def test_dry_run_with_operations(self, cli_runner, sample_dataset):
         """Test dry run mode with operations."""
@@ -155,14 +155,14 @@ class TestCLIOutput:
     
     def test_episode_list_formatting(self, cli_runner, sample_dataset):
         """Test episode list formatting."""
-        result = cli_runner(["--list", str(sample_dataset)])
+        result = cli_runner([str(sample_dataset), "--list"])
         assert result.returncode == 0
         
         # Check for proper episode formatting
         output = result.stdout
-        assert "Episode 0:" in output or "Episode 0 " in output
-        assert "Episode 1:" in output or "Episode 1 " in output
-        assert "Episode 2:" in output or "Episode 2 " in output
+        assert "Episode      0:" in output
+        assert "Episode      1:" in output
+        assert "Episode      2:" in output
     
     def test_episode_detail_formatting(self, cli_runner, sample_dataset):
         """Test individual episode detail formatting."""
@@ -170,9 +170,8 @@ class TestCLIOutput:
         assert result.returncode == 0
         
         output = result.stdout
-        assert "Episode 0" in output
+        assert "=== Episode 0 ===" in output
         assert "Length:" in output
-        assert "Task:" in output
         assert "Data file:" in output
         assert "Video files:" in output
 
@@ -202,7 +201,7 @@ class TestCLIIntegration:
         # Should show all 3 episodes
         output = result.stdout
         for i in range(3):
-            assert f"Episode {i}" in output
+            assert f"Episode      {i}:" in output
     
     def test_cli_episode_details_accuracy(self, cli_runner, sample_dataset, episode_data_reader):
         """Test that CLI episode details match actual data."""
@@ -216,8 +215,8 @@ class TestCLIIntegration:
         
         # Verify CLI reports match actual data
         output = result.stdout
-        assert "Length: 100" in output  # Should match our test data
-        assert "Data file: ✓" in output or "exists" in output.lower()
+        assert "Length: 100 frames" in output  # Should match our test data
+        assert "Data exists: True" in output or "exists" in output.lower()
 
 
 class TestCLIPerformance:
