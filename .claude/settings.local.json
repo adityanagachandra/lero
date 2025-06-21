@@ -9,7 +9,9 @@
       "Bash(sed:*)",
       "Bash(git add:*)",
       "Bash(python:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(ls:*)",
+      "Bash(git check-ignore:*)"
     ],
     "deny": []
   }
