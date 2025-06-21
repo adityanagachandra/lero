@@ -11,7 +11,9 @@
       "Bash(python:*)",
       "Bash(rg:*)",
       "Bash(ls:*)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "Bash(git checkout:*)",
+      "Bash(lero:*)"
     ],
     "deny": []
   }

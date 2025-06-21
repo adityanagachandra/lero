@@ -16,6 +16,7 @@ class TestCLIBasicCommands:
         assert result.returncode == 0
         assert "LERO - LeRobot dataset Operations toolkit" in result.stdout
         assert "--summary" in result.stdout
+        assert "--tasks" in result.stdout
         assert "--list" in result.stdout
         assert "--gui" in result.stdout
     
@@ -27,6 +28,73 @@ class TestCLIBasicCommands:
         assert "Total episodes: 3" in result.stdout
         assert "Total tasks: 2" in result.stdout
         assert "Robot type: so100" in result.stdout
+    
+    def test_list_tasks(self, cli_runner, sample_dataset):
+        """Test tasks list command."""
+        result = cli_runner(["--tasks", str(sample_dataset)])
+        assert result.returncode == 0
+        assert "=== Tasks" in result.stdout
+        assert "Task   0:" in result.stdout
+        assert "Task   1:" in result.stdout
+        assert "Pick up the red block" in result.stdout
+        assert "Place the block in container" in result.stdout
+        # Check that episode counts and episodes are displayed
+        assert "episodes:" in result.stdout
+        # Based on test data: episodes 0,2 use task 0, episode 1 uses task 1
+        assert "2 episodes: 0, 2" in result.stdout or "1 episodes: 1" in result.stdout
+    
+    def test_list_tasks_empty_dataset(self, cli_runner, temp_dir):
+        """Test tasks list command with empty dataset."""
+        # Create minimal dataset with no tasks
+        dataset_path = temp_dir / "empty_dataset"
+        (dataset_path / "meta").mkdir(parents=True)
+        (dataset_path / "data").mkdir(parents=True)
+        
+        # Create empty info.json
+        info_data = {
+            "total_episodes": 0,
+            "robot_type": "test",
+            "total_tasks": 0
+        }
+        with open(dataset_path / "meta" / "info.json", "w") as f:
+            json.dump(info_data, f)
+        
+        # Create empty files
+        (dataset_path / "meta" / "episodes.jsonl").touch()
+        (dataset_path / "meta" / "tasks.jsonl").touch()
+        
+        result = cli_runner(["--tasks", str(dataset_path)])
+        assert result.returncode == 0
+        assert "=== Tasks ===" in result.stdout
+        assert "No tasks found in dataset" in result.stdout
+    
+    def test_list_tasks_with_no_episodes(self, cli_runner, temp_dir):
+        """Test tasks list command with tasks but no episodes."""
+        # Create dataset with tasks but no episodes
+        dataset_path = temp_dir / "tasks_only_dataset"
+        (dataset_path / "meta").mkdir(parents=True)
+        (dataset_path / "data").mkdir(parents=True)
+        
+        # Create info.json
+        info_data = {
+            "total_episodes": 0,
+            "robot_type": "test",
+            "total_tasks": 1
+        }
+        with open(dataset_path / "meta" / "info.json", "w") as f:
+            json.dump(info_data, f)
+        
+        # Create tasks.jsonl with one task
+        with open(dataset_path / "meta" / "tasks.jsonl", "w") as f:
+            f.write(json.dumps({"task_index": 0, "task": "Test task"}) + "\n")
+        
+        # Create empty episodes.jsonl
+        (dataset_path / "meta" / "episodes.jsonl").touch()
+        
+        result = cli_runner(["--tasks", str(dataset_path)])
+        assert result.returncode == 0
+        assert "=== Tasks (1 total) ===" in result.stdout
+        assert "Task   0: Test task (0 episodes)" in result.stdout
     
     def test_dataset_overview_default(self, cli_runner, sample_dataset):
         """Test default dataset overview (no flags)."""

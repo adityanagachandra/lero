@@ -27,6 +27,9 @@ Examples:
   # Show dataset summary
   %(prog)s /path/to/dataset --summary
   
+  # List all tasks in dataset  
+  %(prog)s /path/to/dataset --tasks
+  
   # List episodes
   %(prog)s /path/to/dataset --list 20 --list-start 10
   
@@ -80,6 +83,11 @@ Examples:
             "--show-data", 
             action="store_true", 
             help="Include data sample when displaying episode"
+        )
+        display_group.add_argument(
+            "--tasks", 
+            action="store_true", 
+            help="Show list of all tasks in the dataset"
         )
         
         # Edit operations
@@ -227,6 +235,10 @@ Examples:
             
             if args.summary:
                 editor.dataset_summary()
+                executed_operation = True
+            
+            if args.tasks:
+                editor.list_tasks()
                 executed_operation = True
             
             if args.list is not None:

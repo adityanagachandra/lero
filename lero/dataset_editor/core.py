@@ -69,6 +69,12 @@ class LeRobotDatasetEditor:
         tasks = self.operations.metadata.tasks
         DisplayFormatter.display_dataset_summary(summary, tasks)
     
+    def list_tasks(self) -> None:
+        """Display a list of all tasks in the dataset."""
+        tasks = self.operations.metadata.tasks
+        episodes = self.operations.metadata.episodes
+        DisplayFormatter.display_tasks_list(tasks, episodes)
+    
     def delete_episode(self, episode_index: int, dry_run: bool = False) -> bool:
         """
         Delete a specific episode and renumber all subsequent episodes.

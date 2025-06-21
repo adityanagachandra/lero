@@ -105,6 +105,94 @@ class DisplayFormatter:
         
         if len(tasks) > MAX_TASKS_SUMMARY:
             print(f"  ... and {len(tasks) - MAX_TASKS_SUMMARY} more tasks")
+    
+    @staticmethod
+    def display_tasks_list(tasks: List[Dict[str, Any]], episodes: List[Dict[str, Any]] = None) -> None:
+        """
+        Display a comprehensive list of all tasks in the dataset with associated episodes.
+        
+        Args:
+            tasks: List of task dictionaries
+            episodes: List of episode dictionaries (optional)
+        """
+        if not tasks:
+            print("\n=== Tasks ===")
+            print("No tasks found in dataset.")
+            return
+        
+        # Debug information (can be removed later)
+        import os
+        if os.environ.get('LERO_DEBUG'):
+            print(f"\n=== DEBUG: Tasks ({len(tasks)}) ===")
+            for i, task in enumerate(tasks):
+                print(f"  Task {i}: {task}")
+            print(f"\n=== DEBUG: Episodes ({len(episodes) if episodes else 0}) ===")
+            if episodes:
+                for i, episode in enumerate(episodes):
+                    print(f"  Episode {i}: {episode}")
+            print("=== END DEBUG ===\n")
+        
+        # Create mapping of task_index to episode indices
+        task_to_episodes = {}
+        if episodes:
+            for episode in episodes:
+                # Try multiple ways to get task index
+                task_idx = episode.get('task_index')
+                episode_idx = episode.get('episode_index')
+                
+                # If task_index is not available, try to match by task text
+                if task_idx is None:
+                    # Check for single task field
+                    episode_task = episode.get('task')
+                    if episode_task:
+                        # Find matching task by text
+                        for task in tasks:
+                            if task.get('task') == episode_task:
+                                task_idx = task.get('task_index')
+                                break
+                    
+                    # Check for tasks array (plural)
+                    episode_tasks = episode.get('tasks')
+                    if episode_tasks and isinstance(episode_tasks, list) and len(episode_tasks) > 0:
+                        episode_task = episode_tasks[0]  # Use first task in the array
+                        # Find matching task by text (with fuzzy matching for minor differences)
+                        for task in tasks:
+                            task_text = task.get('task', '')
+                            # Try exact match first
+                            if task_text == episode_task:
+                                task_idx = task.get('task_index')
+                                break
+                            # Try fuzzy match (handle singular/plural differences)
+                            if task_text.lower().replace('plates', 'plate') == episode_task.lower().replace('plates', 'plate'):
+                                task_idx = task.get('task_index')
+                                break
+                
+                if task_idx is not None and episode_idx is not None:
+                    if task_idx not in task_to_episodes:
+                        task_to_episodes[task_idx] = []
+                    task_to_episodes[task_idx].append(episode_idx)
+        
+        print(f"\n=== Tasks ({len(tasks)} total) ===")
+        
+        for task in tasks:
+            task_index = task.get('task_index', 'Unknown')
+            task_text = task.get('task', 'Unknown task')
+            
+            # Get associated episodes
+            episode_indices = task_to_episodes.get(task_index, [])
+            episode_count = len(episode_indices)
+            
+            if episode_indices:
+                episode_indices.sort()
+                if len(episode_indices) <= 5:
+                    episodes_str = f" ({episode_count} episodes: {', '.join(map(str, episode_indices))})"
+                else:
+                    first_few = ', '.join(map(str, episode_indices[:3]))
+                    episodes_str = f" ({episode_count} episodes: {first_few}... +{len(episode_indices)-3} more)"
+            else:
+                episodes_str = " (0 episodes)"
+            
+            print(f"Task {task_index:3}: {task_text}{episodes_str}")
 
 
 class ErrorDisplay:

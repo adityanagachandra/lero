@@ -40,6 +40,19 @@ examples/                   # 使用例スクリプト
 
 ## 開発環境とツール
 
+### Gitブランチ運用規則
+```bash
+# 機能追加の場合
+git checkout -b feature/branch-name
+
+# バグ修正の場合  
+git checkout -b bugfix/issue-number
+
+# 例
+git checkout -b feature/task-list-display
+git checkout -b bugfix/issue123
+```
+
 ### 仮想環境
 ```bash
 # 仮想環境の有効化（開発時は必ず使用）
@@ -160,6 +173,9 @@ dataset/
 ```bash
 # データセット概要表示
 lero /path/to/dataset --summary
+
+# タスク一覧表示
+lero /path/to/dataset --tasks
 
 # エピソード一覧
 lero /path/to/dataset --list 10

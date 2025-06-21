@@ -117,6 +117,19 @@ lero /path/to/dataset --episode 5
 lero /path/to/dataset --episode 5 --show-data
 ```
 
+### Task Display
+
+```bash
+# Display all tasks with episode counts and episode indices
+lero /path/to/dataset --tasks
+
+# Example output:
+# === Tasks (5 total) ===
+# Task   0: Please take one of the plates. (10 episodes: 0, 1, 2... +7 more)
+# Task   1: Please give me two plates. (10 episodes: 10, 11, 12... +7 more)
+# Task   2: Could you take three plates? (10 episodes: 20, 21, 22... +7 more)
+```
+
 ### Episode Operations
 
 ```bash
@@ -153,6 +166,7 @@ python -m lero.gui.viewer /path/to/dataset --episode 5
 |----------|-------------|
 | `dataset_path` | Path to the dataset root directory (required) |
 | `--summary` | Display detailed dataset summary |
+| `--tasks` | Display all tasks with episode counts and indices |
 | `--list [N]` | List episodes (default 10) |
 | `--list-start N` | Starting index for episode listing |
 | `--episode N` | Show details of specific episode |
