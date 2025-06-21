@@ -5,7 +5,6 @@ Command line interface for the dataset editor.
 import argparse
 import sys
 from pathlib import Path
-from typing import Optional
 from .core import LeRobotDatasetEditor
 from .constants import ErrorMessages
 
@@ -88,6 +87,16 @@ Examples:
             "--tasks", 
             action="store_true", 
             help="Show list of all tasks in the dataset"
+        )
+        display_group.add_argument(
+            "--no-color", 
+            action="store_true", 
+            help="Disable colored output"
+        )
+        display_group.add_argument(
+            "--color", 
+            action="store_true", 
+            help="Force colored output even when not detected"
         )
         
         # Edit operations
@@ -224,6 +233,13 @@ Examples:
             Exit code (0 for success, 1 for error)
         """
         try:
+            # Set color environment variables based on arguments
+            import os
+            if args.no_color:
+                os.environ['NO_COLOR'] = '1'
+            elif args.color:
+                os.environ['FORCE_COLOR'] = '1'
+            
             editor = LeRobotDatasetEditor(args.dataset_path)
             
             # Handle GUI launch first (exclusive operation)

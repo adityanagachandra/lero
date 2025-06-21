@@ -4,7 +4,10 @@ Display utilities for dataset information.
 
 import pandas as pd
 from typing import Dict, Any, List
-from .constants import MAX_TASKS_DISPLAY, MAX_TASKS_SUMMARY
+from .constants import (
+    MAX_TASKS_DISPLAY, MAX_TASKS_SUMMARY,
+    header, success, warning, error, info, highlight, dim
+)
 
 
 class DisplayFormatter:
@@ -21,20 +24,21 @@ class DisplayFormatter:
         """
         episode_index = episode_info['episode_index']
         
-        print(f"\n=== Episode {episode_index} ===")
-        print(f"Length: {episode_info['length']} frames")
+        print(f"\n{header(f'=== Episode {episode_index} ===')}")
+        print(f"{highlight('Length:')} {success(str(episode_info['length']))} frames")
         
-        tasks_str = ', '.join(episode_info['tasks']) if episode_info['tasks'] else 'No tasks'
-        print(f"Tasks: {tasks_str}")
+        tasks_str = ', '.join(episode_info['tasks']) if episode_info['tasks'] else warning('No tasks')
+        print(f"{highlight('Tasks:')} {tasks_str}")
         
-        print(f"Data file: {episode_info['data_file']}")
-        print(f"Data exists: {episode_info['data_exists']}")
+        print(f"{highlight('Data file:')} {info(str(episode_info['data_file']))}")
+        data_status = success('EXISTS') if episode_info['data_exists'] else error('MISSING')
+        print(f"{highlight('Data exists:')} {data_status}")
         
-        print("\nVideo files:")
+        print(f"\n{highlight('Video files:')}")
         for video_key, video_path in episode_info['video_files'].items():
             exists = episode_info['videos_exist'][video_key]
-            status = 'EXISTS' if exists else 'MISSING'
-            print(f"  {video_key}: {video_path} ({status})")
+            status = success('EXISTS') if exists else error('MISSING')
+            print(f"  {info(video_key)}: {video_path} ({status})")
         
         # Show data sample if requested and file exists
         if show_data_sample and episode_info['data_exists']:
@@ -46,11 +50,11 @@ class DisplayFormatter:
         """Show a sample of the data file."""
         try:
             df = pd.read_parquet(data_file_path)
-            print(f"\nData Sample (first 5 rows of {len(df)} total):")
+            print(f"\n{header(f'Data Sample (first 5 rows of {len(df)} total):')}")
             print(df.head().to_string())
             return True
         except Exception as e:
-            print(f"\nError reading data file: {e}")
+            print(f"\n{error(f'Error reading data file: {e}')}")
             return False
     
     @staticmethod
@@ -66,18 +70,22 @@ class DisplayFormatter:
         total_episodes = operations.count_episodes()
         end = min(start + count, total_episodes)
         
-        print(f"\n=== Episodes {start}-{end-1} (Total: {total_episodes}) ===")
+        print(f"\n{header(f'=== Episodes {start}-{end-1} (Total: {total_episodes}) ===')}")
         
         for i in range(start, end):
             try:
                 episode_info = operations.get_episode_info(i)
                 tasks_str = ', '.join(episode_info['tasks'][:MAX_TASKS_DISPLAY])
                 if len(episode_info['tasks']) > MAX_TASKS_DISPLAY:
-                    tasks_str += f" (+{len(episode_info['tasks'])-MAX_TASKS_DISPLAY} more)"
+                    more_count = len(episode_info['tasks']) - MAX_TASKS_DISPLAY
+                    tasks_str += f" {dim(f'(+{more_count} more)')}"
                 
-                print(f"Episode {i:6d}: {episode_info['length']:4} frames | {tasks_str}")
+                episode_str = highlight(f"Episode {i:6d}:")
+                frames_str = success(f"{episode_info['length']:4} frames")
+                print(f"{episode_str} {frames_str} | {tasks_str}")
             except Exception as e:
-                print(f"Episode {i:6d}: Error - {e}")
+                episode_str = highlight(f"Episode {i:6d}:")
+                print(f"{episode_str} {error(f'Error - {e}')}")
     
     @staticmethod
     def display_dataset_summary(summary: Dict[str, Any], tasks: List[Dict[str, Any]]) -> None:
@@ -88,23 +96,23 @@ class DisplayFormatter:
             summary: Dictionary containing dataset summary
             tasks: List of task dictionaries
         """
-        print(f"\n=== Dataset Summary ===")
-        print(f"Dataset Path: {summary['dataset_path']}")
-        print(f"Total episodes: {summary['total_episodes']}")
-        print(f"Total frames: {summary.get('total_frames', 'Unknown')}")
-        print(f"Total tasks: {summary['total_tasks']}")
-        print(f"Robot type: {summary.get('robot_type', 'Unknown')}")
-        print(f"FPS: {summary.get('fps', 'Unknown')}")
-        print(f"Codebase version: {summary.get('codebase_version', 'Unknown')}")
+        print(f"\n{header('=== Dataset Summary ===')}")
+        print(f"{highlight('Dataset Path:')} {info(summary['dataset_path'])}")
+        print(f"{highlight('Total episodes:')} {success(str(summary['total_episodes']))}")
+        print(f"{highlight('Total frames:')} {info(str(summary.get('total_frames', 'Unknown')))}")
+        print(f"{highlight('Total tasks:')} {success(str(summary['total_tasks']))}")
+        print(f"{highlight('Robot type:')} {info(str(summary.get('robot_type', 'Unknown')))}")
+        print(f"{highlight('FPS:')} {info(str(summary.get('fps', 'Unknown')))}")
+        print(f"{highlight('Codebase version:')} {info(str(summary.get('codebase_version', 'Unknown')))}")
         
-        print(f"\nAvailable tasks: {len(tasks)}")
+        print(f"\n{highlight(f'Available tasks:')} {success(str(len(tasks)))}")
         for i, task in enumerate(tasks[:MAX_TASKS_SUMMARY]):
             task_index = task.get('task_index', i)
             task_text = task.get('task', 'Unknown task')
-            print(f"  {task_index}: {task_text}")
+            print(f"  {info(str(task_index))}: {task_text}")
         
         if len(tasks) > MAX_TASKS_SUMMARY:
-            print(f"  ... and {len(tasks) - MAX_TASKS_SUMMARY} more tasks")
+            print(f"  {dim(f'... and {len(tasks) - MAX_TASKS_SUMMARY} more tasks')}")
     
     @staticmethod
     def display_tasks_list(tasks: List[Dict[str, Any]], episodes: List[Dict[str, Any]] = None) -> None:
@@ -116,8 +124,8 @@ class DisplayFormatter:
             episodes: List of episode dictionaries (optional)
         """
         if not tasks:
-            print("\n=== Tasks ===")
-            print("No tasks found in dataset.")
+            print(f"\n{header('=== Tasks ===')}")
+            print(warning("No tasks found in dataset."))
             return
         
         # Debug information (can be removed later)
@@ -172,7 +180,7 @@ class DisplayFormatter:
                         task_to_episodes[task_idx] = []
                     task_to_episodes[task_idx].append(episode_idx)
         
-        print(f"\n=== Tasks ({len(tasks)} total) ===")
+        print(f"\n{header(f'=== Tasks ({len(tasks)} total) ===')}")
         
         for task in tasks:
             task_index = task.get('task_index', 'Unknown')
@@ -182,17 +190,23 @@ class DisplayFormatter:
             episode_indices = task_to_episodes.get(task_index, [])
             episode_count = len(episode_indices)
             
+            # Format task index with color
+            task_idx_str = highlight(f"Task {task_index:3}:")
+            
+            # Format episode information with colors
             if episode_indices:
                 episode_indices.sort()
                 if len(episode_indices) <= 5:
-                    episodes_str = f" ({episode_count} episodes: {', '.join(map(str, episode_indices))})"
+                    episode_list = ', '.join(info(str(idx)) for idx in episode_indices)
+                    episodes_str = f" ({success(str(episode_count))} episodes: {episode_list})"
                 else:
-                    first_few = ', '.join(map(str, episode_indices[:3]))
-                    episodes_str = f" ({episode_count} episodes: {first_few}... +{len(episode_indices)-3} more)"
+                    first_few = ', '.join(info(str(idx)) for idx in episode_indices[:3])
+                    more_count = len(episode_indices) - 3
+                    episodes_str = f" ({success(str(episode_count))} episodes: {first_few}... {dim(f'+{more_count} more')})"
             else:
-                episodes_str = " (0 episodes)"
+                episodes_str = f" ({dim('0 episodes')})"
             
-            print(f"Task {task_index:3}: {task_text}{episodes_str}")
+            print(f"{task_idx_str} {task_text}{episodes_str}")
 
 
 class ErrorDisplay:
