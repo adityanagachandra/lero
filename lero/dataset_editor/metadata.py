@@ -234,4 +234,34 @@ class MetadataManager:
                 "codebase_version": self.info.get("codebase_version", "Unknown")
             })
         
+        # Get task names for summary
+        task_names = [task.get("task", "Unknown") for task in self.tasks]
+        summary["task_names"] = task_names
+        
         return summary
+    
+    def get_all_episodes(self) -> List[Dict[str, Any]]:
+        """
+        Get all episodes metadata.
+        
+        Returns:
+            List of episode metadata dictionaries
+        """
+        return self.episodes.copy()
+    
+    def get_all_tasks(self) -> Dict[str, Dict[str, Any]]:
+        """
+        Get all tasks metadata.
+        
+        Returns:
+            Dictionary of task metadata indexed by task_index
+        """
+        tasks_dict = {}
+        for task in self.tasks:
+            task_index = str(task.get("task_index", 0))
+            task_name = task.get("task", "Unknown")
+            tasks_dict[task_index] = {
+                "task": task_name,
+                "instruction": task_name
+            }
+        return tasks_dict
