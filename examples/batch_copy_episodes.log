@@ -398,3 +398,28 @@
 2025-06-25 23:59:12 - __main__ - INFO - ============================================================
 2025-06-25 23:59:15 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmp6jup7wt9/nonexistent
 2025-06-25 23:59:24 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path
+2025-06-27 21:55:30 - __main__ - INFO - Dataset validated successfully - 3 episodes found
+2025-06-27 21:55:30 - __main__ - INFO - ============================================================
+2025-06-27 21:55:30 - __main__ - INFO - Starting batch copy operation
+2025-06-27 21:55:30 - __main__ - INFO - Episodes to copy: [0, 1]
+2025-06-27 21:55:30 - __main__ - INFO - New instruction: 'Test copy'
+2025-06-27 21:55:30 - __main__ - INFO - Dry run mode: True
+2025-06-27 21:55:30 - __main__ - INFO - Continue on error: True
+2025-06-27 21:55:30 - __main__ - INFO - ============================================================
+2025-06-27 21:55:30 - __main__ - INFO - [1/2] Processing episode 0
+2025-06-27 21:55:30 - __main__ - INFO - [DRY RUN] Copying episode 0...
+2025-06-27 21:55:30 - __main__ - INFO - Episode 0 would be copied
+2025-06-27 21:55:30 - __main__ - INFO - [2/2] Processing episode 1
+2025-06-27 21:55:30 - __main__ - INFO - [DRY RUN] Copying episode 1...
+2025-06-27 21:55:30 - __main__ - INFO - Episode 1 would be copied
+2025-06-27 21:55:30 - __main__ - INFO - ============================================================
+2025-06-27 21:55:30 - __main__ - INFO - Batch copy operation completed
+2025-06-27 21:55:30 - __main__ - INFO - Total episodes processed: 2
+2025-06-27 21:55:30 - __main__ - INFO - Successful copies: 2
+2025-06-27 21:55:30 - __main__ - INFO - Failed copies: 0
+2025-06-27 21:55:30 - __main__ - INFO - Skipped episodes: 0
+2025-06-27 21:55:30 - __main__ - INFO - Duration: 0.21 seconds
+2025-06-27 21:55:30 - __main__ - INFO - All operations completed successfully
+2025-06-27 21:55:30 - __main__ - INFO - ============================================================
+2025-06-27 21:55:33 - __main__ - ERROR - Dataset directory does not exist: /var/folders/4z/p7jcqlsx167fswfsch20q02h0000gn/T/tmpcyd5zhu5/nonexistent
+2025-06-27 21:55:41 - __main__ - ERROR - Dataset directory does not exist: /nonexistent/path

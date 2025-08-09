@@ -7,7 +7,8 @@ name = "lero"
 version = "0.3.0"
 description = "LERO - LeRobot dataset Operations toolkit for editing and managing LeRobot datasets"
 readme = "README.md"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [
     { name = "LERO Team", email = "example@example.com" }
 ]
@@ -31,6 +32,8 @@ dependencies = [
     "pyarrow>=10.0.0",
 ]
 
+
+
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
@@ -50,10 +53,10 @@ gui = [
 lero = "lero.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/example/lero"
-Repository = "https://github.com/example/lero"
-Documentation = "https://github.com/example/lero#readme"
-"Bug Tracker" = "https://github.com/example/lero/issues"
+Homepage = "https://github.com/masato-ka/lero"
+Repository = "https://github.com/masato-ka/lero"
+Documentation = "https://github.com/masato-ka/lero#readme"
+Issues = "https://github.com/example/masato-ka/issues"
 
 [tool.hatch.version]
 path = "lero/__init__.py"
