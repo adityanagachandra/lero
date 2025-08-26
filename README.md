@@ -406,3 +406,7 @@ Bug reports and feature requests are welcome via GitHub Issues. Pull requests ar
 ### Previous Versions
 - **v0.2.0**: Episode deletion with automatic renumbering
 - **v0.1.0**: Basic dataset overview and episode display functionality
+
+### USage
+
+**PP-v1**: python -m lero "/Users/aditya/.cache/huggingface/lerobot/adungus/PP-v1" --gui
