@@ -118,6 +118,7 @@ class EpisodeGUIViewer:
             self.control_panel.on_step_forward = self._handle_step_forward
             self.control_panel.on_step_backward = self._handle_step_backward
             self.control_panel.on_speed_change = self._handle_speed_change
+            self.control_panel.on_jump_to_frame = self._handle_jump_to_frame
         
         if self.timeline:
             self.timeline.on_timeline_change = self._handle_timeline_change
@@ -265,6 +266,33 @@ class EpisodeGUIViewer:
                 self._update_display(update_timeline=False)  # Don't update timeline again
         except (ValueError, TypeError):
             pass
+    
+    def _handle_jump_to_frame(self) -> None:
+        """Handle jump to frame request."""
+        if not self.control_panel:
+            return
+        
+        try:
+            # Get frame number from input (1-indexed from user)
+            frame_input = self.control_panel.get_frame_input()
+            
+            if frame_input < 1:
+                messagebox.showerror("Error", "Please enter a valid frame number (1 or greater)")
+                return
+            
+            # Convert to 0-indexed for internal use
+            target_frame = frame_input - 1
+            
+            if target_frame >= self.total_frames:
+                messagebox.showerror("Error", f"Frame {frame_input} is out of range. Maximum frame is {self.total_frames}")
+                return
+            
+            # Jump to the specified frame
+            self.current_frame = target_frame
+            self._update_display()
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to jump to frame: {e}")
     
     def _play_next_frame(self) -> None:
         """Play next frame automatically."""

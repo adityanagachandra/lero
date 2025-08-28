@@ -31,6 +31,7 @@ class ControlPanel:
         self.episode_var = tk.StringVar()
         self.episode_info_var = tk.StringVar()
         self.frame_var = tk.StringVar()
+        self.frame_input_var = tk.StringVar()
         self.speed_var = tk.DoubleVar(value=DEFAULT_PLAYBACK_SPEED)
         
         # Control widgets
@@ -44,6 +45,7 @@ class ControlPanel:
         self.on_step_forward: Optional[Callable] = None
         self.on_step_backward: Optional[Callable] = None
         self.on_speed_change: Optional[Callable] = None
+        self.on_jump_to_frame: Optional[Callable] = None
         
         self._setup_controls()
     
@@ -118,6 +120,9 @@ class ControlPanel:
             command=self._on_step_forward_button
         ).pack(side=tk.LEFT, padx=(5, 0))
         
+        # Frame jump control
+        self._setup_frame_jump_control(playback_frame)
+        
         # Speed control
         self._setup_speed_control(playback_frame)
         
@@ -128,6 +133,26 @@ class ControlPanel:
             font=LABEL_FONT
         )
         frame_info_label.pack(side=tk.RIGHT)
+    
+    def _setup_frame_jump_control(self, parent: ttk.Frame) -> None:
+        """Setup frame jump control widgets."""
+        ttk.Label(parent, text="Jump to frame:").pack(side=tk.LEFT, padx=(20, 5))
+        
+        frame_entry = ttk.Entry(
+            parent,
+            textvariable=self.frame_input_var,
+            width=8
+        )
+        frame_entry.pack(side=tk.LEFT)
+        
+        # Bind Enter key to jump to frame
+        frame_entry.bind("<Return>", lambda e: self._on_jump_to_frame_button())
+        
+        ttk.Button(
+            parent,
+            text="Go",
+            command=self._on_jump_to_frame_button
+        ).pack(side=tk.LEFT, padx=(2, 0))
     
     def _setup_speed_control(self, parent: ttk.Frame) -> None:
         """Setup speed control widgets."""
@@ -182,6 +207,11 @@ class ControlPanel:
         if self.on_speed_change:
             self.on_speed_change(value)
     
+    def _on_jump_to_frame_button(self):
+        """Handle jump to frame button click."""
+        if self.on_jump_to_frame:
+            self.on_jump_to_frame()
+    
     # Public methods for updating display
     def update_play_button_text(self, text: str) -> None:
         """Update the play button text."""
@@ -211,6 +241,16 @@ class ControlPanel:
     def get_playback_speed(self) -> float:
         """Get the current playback speed."""
         return self.speed_var.get()
+    
+    def get_frame_input(self) -> int:
+        """Get the frame number from the input field."""
+        try:
+            frame_input = self.frame_input_var.get().strip()
+            if not frame_input:
+                return -1  # Invalid input
+            return int(frame_input)
+        except ValueError:
+            return -1  # Invalid input
 
 
 class TimelineComponent:
